@@ -66,11 +66,10 @@ const createFixStorage =
 
   const storeFix = (fix) => {
     fixesInMemory.push(fix);
+    ++nFixesSinceSync;
     if (nFixesSinceSync >= localStorageSyncIntervalInFixes) {
       nFixesSinceSync = 0;
       syncToLocalStorage();
-    } else {
-      ++nFixesSinceSync;
     }
   };
 
