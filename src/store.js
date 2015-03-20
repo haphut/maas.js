@@ -23,6 +23,10 @@ import _ from 'lodash';
 const LOCAL_STORAGE_SYNC_INTERVAL_IN_FIXES = 20;
 const LOCAL_STORAGE_KEY = 'maas.js_fixes';
 
+/**
+ * Stores fixes for later retrieval. Syncs every localStorageSyncIntervalInFixes
+ * into localStorage.
+ */
 const createFixStorage =
   (localStorageSyncIntervalInFixes = LOCAL_STORAGE_SYNC_INTERVAL_IN_FIXES,
    localStorageKey = LOCAL_STORAGE_KEY) => {
