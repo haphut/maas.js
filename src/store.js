@@ -30,6 +30,7 @@ const LOCAL_STORAGE_KEY = 'maas.js_fixes';
 const createFixStorage =
   (localStorageSyncIntervalInFixes = LOCAL_STORAGE_SYNC_INTERVAL_IN_FIXES,
    localStorageKey = LOCAL_STORAGE_KEY) => {
+  // FIXME: Check that syncInterval is a positive integer.
   let fixesInMemory = [];
   let nFixesSinceSync = 0;
 
