@@ -34,50 +34,17 @@ const createFixStorage =
   let nFixesSinceSync = 0;
 
   /**
-   * Only keep the essentials.
-   */
-  const stripFix = (fix) => {
-    const coordinates = fix.geometry.coordinates;
-    const timestamp = fix.properties.timestamp;
-    return {
-      c: coordinates,
-      t: timestamp
-    };
-  };
-
-  /**
-   * Transform a stripped fix back into a proper GeoJSON fix.
-   */
-  const bloatFix = (strippedFix) => {
-    const coordinates = strippedFix.c;
-    const timestamp = strippedFix.t;
-    return {
-      type: 'Feature',
-      properties: {
-        timestamp
-      },
-      geometry: {
-        coordinates
-      }
-    };
-  };
-
-  /**
-   * Transform an array of fixes into a stringified JSON array of stripped
-   * fixes.
+   * Transform an array of fixes into a string.
    */
   const transformFixesToString = (fixes) => {
-    const compressed = _.map(fixes, stripFix);
-    return JSON.stringify(compressed);
+    return JSON.stringify(fixes);
   };
 
   /**
-   * Transform a stringified JSON array of stripped fixes into an array of
-   * fixes.
+   * Transform a string into an array of fixes.
    */
   const transformStringToFixes = (string) => {
-    const strippedFixes = JSON.parse(string);
-    return _.map(strippedFixes, bloatFix);
+    return JSON.parse(string);
   };
 
   const syncToLocalStorage = () => {
