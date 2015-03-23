@@ -48,6 +48,10 @@ const createFixStorage =
     return JSON.parse(string);
   };
 
+  /**
+   * Concatenate the array in memory onto the array in localStorage. Empty the
+   * memory in array.
+   */
   const syncToLocalStorage = () => {
     if (!_.isEmpty(fixesInMemory)) {
       const filedString = localStorage.getItem(localStorageKey);
@@ -64,6 +68,10 @@ const createFixStorage =
     }
   };
 
+  /**
+   * Add a new fix into the array in memory. Sync the array in memory with
+   * localStorage if enough fixes have been received since last sync.
+   */
   const storeFix = (fix) => {
     fixesInMemory.push(fix);
     ++nFixesSinceSync;
@@ -73,6 +81,9 @@ const createFixStorage =
     }
   };
 
+  /**
+   * Return the fixes from localStorage and memory, concatenated.
+   */
   const getFixes = () => {
     const filedString = localStorage.getItem(localStorageKey);
     let toGiveFixes;
@@ -85,6 +96,9 @@ const createFixStorage =
     return toGiveFixes;
   };
 
+  /**
+   * Remove all fixes from localStorage and memory.
+   */
   const purgeAllFixes = () => {
     localStorage.removeItem(localStorageKey);
     fixes = [];
