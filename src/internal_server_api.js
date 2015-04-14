@@ -27,9 +27,10 @@ const ENDPOINT_PLANS = '/plans';
 const ENDPOINT_TRACES = '/traces';
 
 const transformToUrlParameters = (obj) => {
-  const array = _.forOwn(obj, (value, key) =>
-    encodeURIComponent(key) + '=' + encodeURIComponent(value));
-  return array.join('&');
+  let arr = [];
+  _.forOwn(obj, (value, key) =>
+    arr.push(encodeURIComponent(key) + '=' + encodeURIComponent(value)));
+  return arr.join('&');
 };
 
 const checkStatus = (response) => {
