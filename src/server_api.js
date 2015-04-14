@@ -25,7 +25,7 @@ import {
   sendPlan,
   sendOneOrMoreTraces,
   sendOneOrMoreRoutes,
-  getSpeedAverages,
+  getSpeedAverages
 } from './internal_server_api.js';
 
 const getJson = (response) => {
