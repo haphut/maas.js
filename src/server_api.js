@@ -91,7 +91,8 @@ const sendItinerary = (baseUrl, journeyId, lineString, timestamp) => {
     coordinates: lineString.geometry.coordinates,
     timestamp: timestamp.toISOString()
   };
-  return sendPlan(baseUrl, payload);
+  return sendPlan(baseUrl, payload)
+    .then(getJson);
 };
 
 const sendSegments = (baseUrl, journeyId, segments, analysisNames, modes) => {
