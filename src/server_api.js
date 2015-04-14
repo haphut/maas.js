@@ -94,10 +94,11 @@ const sendItinerary = (baseUrl, journeyId, lineString, timestamp) => {
   return sendPlan(baseUrl, payload);
 };
 
-const sendSegments = (baseUrl, journeyId, segments, analysisName, modes) => {
+const sendSegments = (baseUrl, journeyId, segments, analysisNames, modes) => {
   const payload = _(segments)
+    .zip(analysisNames)
     .zip(modes)
-    .map(([segment, mode]) => {
+    .map(([segment, analysisName, mode]) => {
       const start = segment.start;
       const end = segment.end;
       return {
