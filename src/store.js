@@ -91,7 +91,7 @@ const createFixStorage =
       const filedFixes = transformStringToFixes(filedString);
       toGiveFixes = filedFixes.concat(fixesInMemory);
     } else {
-      toGiveFixes = _.clone(fixesInMemory);
+      toGiveFixes = _.cloneDeep(fixesInMemory);
     }
     return toGiveFixes;
   };
