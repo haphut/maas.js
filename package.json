@@ -1,0 +1,43 @@
+{
+  "name": "maas.js",
+  "version": "0.0.1",
+  "description": "Browser client for maas-server",
+  "author": {
+    "name": "haphut",
+    "email": "haphut@gmail.com",
+    "url": "https://github.com/haphut"
+  },
+  "homepage": "https://github.com/okffi/maas.js",
+  "bugs": {
+    "url": "https://github.com/okffi/maas.js/issues"
+  },
+  "license": "AGPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/okffi/maas.js.git"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "lodash": "file:./lodash_custom",
+    "node-uuid": "^1.4.3",
+    "superagent": "^1.1.0",
+    "traceur-runtime": "haphut/traceur-runtime#npm_dependable"
+  },
+  "devDependencies": {
+    "browserify": "^9.0.3",
+    "es6ify": "^1.6.0",
+    "gulp": "^3.8.11",
+    "gulp-jsdoc": "^0.1.4",
+    "gulp-jshint": "^1.9.2",
+    "gulp-traceur": "^0.17.0",
+    "gulp-uglify": "^1.1.0",
+    "jsverify": "^0.5.2",
+    "lodash-cli": "^3.6.0",
+    "mocha": "^2.2.1",
+    "mocha-traceur": "^2.1.0",
+    "rimraf": "^2.3.2",
+    "should": "^5.2.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
