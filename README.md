@@ -38,7 +38,7 @@ Lint source code.
 gulp lint
 ```
 
-Run tests. Currently no tests have been written! Shame on me.
+Run tests. Currently there are only a few tests! Shame on me.
 ```sh
 gulp test
 ```
