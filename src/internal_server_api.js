@@ -18,53 +18,78 @@
  * along with maas.js.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import request from 'superagent';
+import fetch from 'isomorphic-fetch';
+import _ from 'lodash';
 
 const ENDPOINT_SPEEDS = '/reports/speed-averages';
 const ENDPOINT_ROUTES = '/routes';
 const ENDPOINT_PLANS = '/plans';
 const ENDPOINT_TRACES = '/traces';
 
-const post = (url, payload, callback) => {
-  return request
-    .post(url)
-    .send(payload)
-    .set('Accept', 'application/json')
-    .set('Content-Type', 'application/json')
-    .end(callback);
+const transformToUrlParameters = (obj) => {
+  const array = _.forOwn(obj, (value, key) =>
+    encodeURIComponent(key) + '=' + encodeURIComponent(value));
+  return array.join('&');
 };
 
-const get = (url, parameters, callback) => {
-  return request
-    .get(url)
-    .query(parameters)
-    .set('Accept', 'application/json')
-    .end(callback);
+const checkStatus = (response) => {
+  // FIXME: Once the fetch polyfill supports response.ok, change to that.
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  }
+  throw new Error(response.statusText);
 };
 
-const getPlan = (baseUrl, planId, callback) => {
+const post = (url, payload) => {
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    mode: 'cors',
+    body: JSON.stringify(payload)
+  })
+  .then(checkStatus);
+};
+
+const get = (urlBeforeParameters, parameters) => {
+  let url = urlBeforeParameters;
+  if (parameters) {
+    url += '?' + transformToUrlParameters(parameters);
+  }
+  return fetch(url, {
+    headers: {
+      'Accept': 'application/json'
+    },
+    mode: 'cors'
+  })
+  .then(checkStatus);
+};
+
+const getPlan = (baseUrl, planId) => {
   const url = baseUrl + ENDPOINT_PLANS + '/' + planId;
-  return get(url, null, callback);
+  return get(url, null);
 };
 
-const sendPlan = (baseUrl, payload, callback) => {
+const sendPlan = (baseUrl, payload) => {
   const url = baseUrl + ENDPOINT_PLANS;
-  return post(url, payload, callback);
+  return post(url, payload);
 };
 
-const sendOneOrMoreTraces = (baseUrl, payload, callback) => {
+const sendOneOrMoreTraces = (baseUrl, payload) => {
   const url = baseUrl + ENDPOINT_TRACES;
-  return post(url, payload, callback);
+  return post(url, payload);
 };
 
-const sendOneOrMoreRoutes = (baseUrl, payload, callback) => {
+const sendOneOrMoreRoutes = (baseUrl, payload) => {
   const url = baseUrl + ENDPOINT_ROUTES;
-  return post(url, payload, callback);
+  return post(url, payload);
 };
 
-const getSpeedAverages = (baseUrl, parameters, callback) => {
+const getSpeedAverages = (baseUrl, parameters) => {
   const url = baseUrl + ENDPOINT_SPEEDS;
-  return get(url, parameters, callback);
+  return get(url, parameters);
 };
 
 export {

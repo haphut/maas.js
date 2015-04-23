@@ -18,9 +18,9 @@
   },
   "main": "index.js",
   "dependencies": {
+    "isomorphic-fetch": "^2.0.1",
     "lodash": "file:./lodash_custom",
     "node-uuid": "^1.4.3",
-    "superagent": "^1.1.0",
     "traceur-runtime": "haphut/traceur-runtime#npm_dependable"
   },
   "devDependencies": {

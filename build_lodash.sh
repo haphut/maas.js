@@ -23,6 +23,7 @@ exports=node \
 include=\
 chain,\
 cloneDeep,\
+forOwn,\
 isEmpty,\
 isNumber,\
 isString,\

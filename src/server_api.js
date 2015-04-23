@@ -28,6 +28,10 @@ import {
   getSpeedAverages,
 } from './internal_server_api.js';
 
+const getJson = (response) => {
+  return response.json();
+};
+
 const addReportParameters = (parameters, after, before, type) => {
   if (after) {
     parameters.after = after.toISOString();
@@ -41,8 +45,8 @@ const addReportParameters = (parameters, after, before, type) => {
   return parameters;
 };
 
-const getSpeedAveragesForBoundary = (baseUrl, boundary, after, before, type,
-                                     callback) => {
+const getSpeedAveragesForBoundary = (baseUrl, boundary, after, before,
+                                     type) => {
   let parameters = {
     boundary_sw_lon: boundary.swLongitude, // jshint ignore:line
     boundary_sw_lat: boundary.swLatitude, // jshint ignore:line
@@ -50,19 +54,21 @@ const getSpeedAveragesForBoundary = (baseUrl, boundary, after, before, type,
     boundary_ne_lat: boundary.neLatitude // jshint ignore:line
   };
   parameters = addReportParameters(parameters, after, before, type);
-  return getSpeedAverages(baseUrl, parameters, callback);
+  return getSpeedAverages(baseUrl, parameters)
+    .then(getJson);
 };
 
-const getSpeedAveragesForItinerary = (baseUrl, itineraryId, after, before, type,
-                                      callback) => {
+const getSpeedAveragesForItinerary = (baseUrl, itineraryId, after, before,
+                                      type) => {
   let parameters = {
     planID: itineraryId
   };
   parameters = addReportParameters(parameters, after, before, type);
-  return getSpeedAverages(baseUrl, parameters, callback);
+  return getSpeedAverages(baseUrl, parameters)
+    .then(getJson);
 };
 
-const sendFixes = (baseUrl, journeyId, fixes, callback) => {
+const sendFixes = (baseUrl, journeyId, fixes) => {
   const payload = _.map(fixes, fix => {
     const coordinates = fix.geometry.coordinates;
     let obj = {
@@ -76,20 +82,19 @@ const sendFixes = (baseUrl, journeyId, fixes, callback) => {
     }
     return obj;
   });
-  return sendOneOrMoreTraces(baseUrl, payload, callback);
+  return sendOneOrMoreTraces(baseUrl, payload);
 };
 
-const sendItinerary = (baseUrl, journeyId, lineString, timestamp, callback) => {
+const sendItinerary = (baseUrl, journeyId, lineString, timestamp) => {
   const payload = {
     journey_id: journeyId, // jshint ignore:line
     coordinates: lineString.geometry.coordinates,
     timestamp: timestamp.toISOString()
   };
-  return sendPlan(baseUrl, payload, callback);
+  return sendPlan(baseUrl, payload);
 };
 
-const sendSegments = (baseUrl, journeyId, segments, analysisName, modes,
-                      callback) => {
+const sendSegments = (baseUrl, journeyId, segments, analysisName, modes) => {
   const payload = _(segments)
     .zip(modes)
     .map(([segment, mode]) => {
@@ -104,7 +109,7 @@ const sendSegments = (baseUrl, journeyId, segments, analysisName, modes,
       };
     })
     .value();
-  return sendOneOrMoreRoutes(baseUrl, payload, callback);
+  return sendOneOrMoreRoutes(baseUrl, payload);
 };
 
 const createConnector = (baseUrl) => {
