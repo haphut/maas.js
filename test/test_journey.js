@@ -1,5 +1,5 @@
 /**
- * maas.js - Communicate with maas-server
+ * maas.js - Client for maas-server
  * Copyright (C) 2015 haphut <haphut@gmail.com>
  *
  * This file is part of maas.js.

@@ -1,7 +1,7 @@
 {
   "name": "maas.js",
   "version": "0.0.1",
-  "description": "Browser client for maas-server",
+  "description": "Client for maas-server",
   "author": {
     "name": "haphut",
     "email": "haphut@gmail.com",
