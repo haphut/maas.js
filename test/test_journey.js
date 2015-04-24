@@ -18,7 +18,7 @@
  * along with maas.js.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import should from 'should';
+import should from 'should'; // jshint ignore:line
 
 import {createJourneyId} from '../src/journey';
 
@@ -26,7 +26,7 @@ describe('createJourneyId', () => {
   const id = createJourneyId();
 
   it('returns a String', () => {
-    id.should.be.String;
+    id.should.be.String; // jshint ignore:line
   });
 
   it('returns something of length 36', () => {
