@@ -99,13 +99,14 @@ const sendSegments = (baseUrl, journeyId, segments, analysisNames, modes) => {
   const payload = _(segments)
     .zip(analysisNames)
     .zip(modes)
-    .map(([segment, analysisName, mode]) => {
+    .map(([[segment, analysisName], mode]) => {
       const start = segment.start;
       const end = segment.end;
       return {
         journey_id: journeyId, // jshint ignore:line
-        coordinates: [start.geometry.coordinates, end.geometry.coordinates],
-        timestamp: end.properties.timestamp.toISOString(),
+        coordinates: [start.node.geometry.coordinates,
+                      end.node.geometry.coordinates],
+        timestamp: end.timestamp.toISOString(),
         speed: segment[analysisName],
         mode
       };
